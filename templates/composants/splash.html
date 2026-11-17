@@ -1,0 +1,34 @@
+{% load i18n %}{% comment %}
+Splash screen : l'arche se dessine, le logo monte, le bus arrive, puis la page s'affiche.
+Reprend la div .splash de docs/maquettes/splash_arche_bus_kantara.html, sans style en ligne (CSP).
+Masqué par défaut : static/js/splash.js choisit la version (classe sur <html>) puis le retire du DOM.
+aria-hidden : purement décoratif, aucun élément ne peut prendre le focus.
+{% endcomment %}
+<div class="splash" aria-hidden="true">
+  <span class="splash-cercle splash-cercle-haut"></span>
+  <span class="splash-cercle splash-cercle-bas"></span>
+  <div class="splash-scene">
+    <span class="splash-pastille"></span>
+    <span class="splash-route"></span>
+    <span class="splash-tirets"></span>
+    <span class="splash-vitesse splash-vitesse-longue"></span>
+    <span class="splash-vitesse splash-vitesse-courte"></span>
+    <span class="splash-bus">
+      <span class="splash-vitre"></span>
+      <span class="splash-porte"></span>
+      <span class="splash-roue splash-roue-arriere"></span>
+      <span class="splash-roue splash-roue-avant"></span>
+    </span>
+    <p class="splash-trajet">YDE <span class="splash-fleche">→</span> DLA</p>
+    <div class="splash-marque">
+      <svg class="splash-logo" viewBox="0 0 64 64" focusable="false">
+        <rect class="splash-carre" width="64" height="64" rx="16"/>
+        <path class="splash-arche" d="M17 40 A15 15 0 0 1 47 40" fill="none" stroke-width="6"/>
+        <rect class="splash-socle" x="8" y="39" width="48" height="6" rx="1"/>
+      </svg>
+      <p class="splash-nom"><span class="splash-kantara">Kantara</span><br><span class="splash-agiltrip">AgilTrip</span></p>
+      <p class="splash-slogan">{% translate "Voyagez en confiance" %}</p>
+    </div>
+    <span class="splash-charge"><span class="splash-charge-barre"></span></span>
+  </div>
+</div>

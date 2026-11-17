@@ -1,0 +1,68 @@
+SPLASH SCREEN KANTARA AGILTRIP
+==============================
+
+Pour le voir tout de suite
+--------------------------
+Double-clic sur apercu.html (Chrome, Edge ou Firefox). Pas besoin de Django ni de serveur.
+Les deux boutons de la page relancent la version complète ou la version courte.
+
+
+Ce qu'il fait
+-------------
+- Premier lancement sur l'appareil : version complète, environ 7 s. L'arche du logo se dessine,
+  le logo monte, la route apparaît, le bus arrive, puis « YDE → DLA ».
+- Lancements suivants : version courte, environ 2,5 s, l'arche seule.
+- Une seule fois par onglet : rien quand on passe d'une page à l'autre.
+- « Réduire les animations » activé dans le système : le logo fixe pendant 1 s.
+- Un clic, un toucher ou une touche le ferme tout de suite. Il n'apparaît jamais à l'impression.
+- Aucun style ni script en ligne : il passe avec une CSP stricte.
+
+
+Contenu du dossier
+------------------
+templates/composants/splash.html    le gabarit Django (le HTML du splash)
+static/css/splash.css               l'animation
+static/css/splash-couleurs.css      les couleurs et la police dont splash.css a besoin
+static/js/splash.js                 choisit la version et retire le splash à la fin
+static/fonts/plus-jakarta-sans.woff2  la police (licence libre OFL)
+maquette/splash_arche_bus_kantara.html  la maquette d'origine, à titre de référence
+apercu.html, apercu.css, apercu.js  la page d'aperçu, à ne pas copier dans le projet
+
+
+Brancher dans un projet Django
+------------------------------
+1. Copier templates/ et static/ dans le projet, aux mêmes chemins.
+
+2. Dans le gabarit de base (base.html), dans <head> :
+
+     {% load static %}
+     <link rel="stylesheet" href="{% static 'css/splash-couleurs.css' %}">
+     <link rel="stylesheet" href="{% static 'css/splash.css' %}">
+     <script src="{% static 'js/splash.js' %}"></script>
+
+   Attention : splash.js va bien dans <head>, SANS « defer ». C'est voulu : il choisit la version
+   avant le premier affichage, sinon le splash clignote sur les pages suivantes.
+
+   Si le projet a déjà theme.css et app.css de Kantara AgilTrip, ne pas mettre
+   splash-couleurs.css : les mêmes variables y sont déjà.
+
+3. Juste après l'ouverture de <body> :
+
+     {% include "composants/splash.html" %}
+
+Le gabarit utilise {% translate %} pour le slogan. Ça marche dans tout projet Django,
+même sans traduction configurée.
+
+
+Sans Django (HTML simple)
+-------------------------
+Reprendre apercu.html : les liens vers les CSS et splash.js dans <head>, puis la <div class="splash">
+au début de <body>. Le reste de la page (la balise <main>) se remplace par le vrai contenu.
+
+
+Changer les couleurs ou le trajet
+---------------------------------
+- Couleurs : les variables en haut de splash-couleurs.css (ou de theme.css).
+- Trajet affiché (YDE → DLA) et slogan : dans splash.html.
+- Durées : dans splash.css (version complète, version courte), et la table DUREES en haut
+  de splash.js si on allonge l'animation.

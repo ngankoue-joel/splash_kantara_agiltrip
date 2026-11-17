@@ -1,0 +1,240 @@
+/* Kantara AgilTrip — splash screen.
+   Reprend l'animation de docs/maquettes/splash_arche_bus_kantara.html : mêmes formes, couleurs,
+   ordre et durées. Masqué tant que static/js/splash.js n'a pas choisi une version, qu'il pose sur <html> :
+     .splash-complet  arche puis bus, environ 7 s (premier lancement sur l'appareil) ;
+     .splash-court    arche seule, environ 2,5 s (lancements suivants) ;
+     .splash-reduit   logo fixe 1 s (« réduire les animations » activé).
+   Les couleurs viennent de theme.css. */
+
+.splash { display: none; }
+
+.splash-actif .splash {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  overflow: hidden;
+  background: var(--bleu-fonce);
+  font-family: var(--police);
+  line-height: normal;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.splash p { margin: 0; }
+
+/* Cercles décoratifs : accrochés aux coins de l'écran, sur toute la surface bleue. */
+.splash-cercle { position: absolute; border-radius: 50%; background: var(--bleu-marque); }
+.splash-cercle-haut { width: 260px; height: 260px; right: -120px; top: -100px; }
+.splash-cercle-bas { width: 190px; height: 190px; left: -100px; bottom: -70px; }
+
+/* Scène : l'écran de la maquette mesure 282 × 602 px. On garde ses hauteurs, centrées dans l'écran,
+   sur une largeur de 420 px au plus : sur tablette et ordinateur le fond bleu couvre tout l'écran,
+   le logo, la route et le bus restent au centre, sans déformation. Les positions horizontales sont
+   prises depuis le milieu de la scène (le bus de la maquette est centré). */
+.splash-scene {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(50% - 301px);
+  width: 100%;
+  max-width: 420px;
+  height: 602px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+/* Écrans peu hauts (téléphone couché) : la scène est réduite d'un bloc, sans être déformée. */
+@media (max-height: 540px) { .splash-scene { transform: scale(.86); } }
+@media (max-height: 460px) { .splash-scene { transform: scale(.7); } }
+@media (max-height: 380px) { .splash-scene { transform: scale(.56); } }
+
+.splash-pastille {
+  position: absolute;
+  top: 330px;
+  left: calc(50% + 75px);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--jaune);
+}
+
+/* Logo, nom et slogan */
+.splash-marque {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transform-origin: 50% 50%;
+}
+.splash-logo { width: 100px; height: 100px; overflow: visible; }
+.splash-carre { fill: var(--jaune); }
+.splash-arche { stroke: var(--bleu-fonce); }
+.splash-socle { fill: var(--bleu-fonce); }
+.splash-carre, .splash-socle { transform-box: fill-box; transform-origin: center; }
+.splash-nom { font-weight: 800; line-height: 1.05; font-size: 28px; text-align: center; }
+.splash-kantara { color: var(--blanc); }
+.splash-agiltrip { color: var(--jaune); }
+.splash-slogan { color: var(--blanc); opacity: .85; font-size: 12.5px; letter-spacing: .4px; }
+
+/* Barre de chargement */
+.splash-charge {
+  position: absolute;
+  bottom: 38px;
+  left: 50%;
+  margin-left: -50px;
+  width: 100px;
+  height: 5px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, .2);
+  overflow: hidden;
+}
+.splash-charge-barre {
+  display: block;
+  height: 100%;
+  background: var(--jaune);
+  border-radius: 5px;
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+/* Route, bus et trajet */
+.splash-route { position: absolute; left: 0; right: 0; top: 420px; height: 46px; background: var(--bleu-nuit); }
+.splash-tirets {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 441px;
+  height: 4px;
+  background: repeating-linear-gradient(90deg, var(--jaune) 0 22px, transparent 22px 40px);
+}
+.splash-bus {
+  position: absolute;
+  top: 392px;
+  left: calc(50% - 48px);
+  width: 100px;
+  height: 44px;
+  background: var(--jaune);
+  border-radius: 10px 16px 6px 6px;
+}
+.splash-vitre, .splash-porte {
+  position: absolute;
+  top: 7px;
+  background: var(--bleu-fonce);
+  border-radius: 3px;
+  opacity: .85;
+}
+.splash-vitre { left: 8px; width: 64px; height: 14px; }
+.splash-porte { right: 7px; width: 15px; height: 21px; }
+.splash-roue {
+  position: absolute;
+  bottom: -9px;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: var(--bleu-encre);
+  border: 3px solid var(--blanc);
+}
+.splash-roue-arriere { left: 12px; }
+.splash-roue-avant { right: 12px; }
+.splash-roue::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 1px;
+  width: 2px;
+  height: 5px;
+  margin-left: -1px;
+  background: var(--blanc);
+  border-radius: 1px;
+}
+.splash-vitesse { position: absolute; height: 3px; border-radius: 3px; background: rgba(255, 255, 255, .45); }
+.splash-vitesse-longue { top: 403px; left: calc(50% - 105px); width: 42px; }
+.splash-vitesse-courte { top: 416px; left: calc(50% - 89px); width: 26px; }
+.splash-trajet {
+  position: absolute;
+  bottom: 74px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: var(--blanc);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: .5px;
+}
+.splash-fleche { color: var(--jaune); }
+
+/* ---------- État de départ ---------- */
+.splash-carre, .splash-nom, .splash-slogan, .splash-pastille, .splash-route, .splash-tirets,
+.splash-bus, .splash-trajet, .splash-vitesse { opacity: 0; }
+.splash-socle { transform: scaleX(0); }
+.splash-arche { stroke-dasharray: 48; stroke-dashoffset: 48; }
+
+/* ---------- Version complète (durées de la maquette) ---------- */
+/* Acte 1, de 0 à 3 s : l'arche */
+.splash-complet .splash-carre { animation: splash-pop .72s cubic-bezier(.2, .8, .3, 1.2) .24s both; }
+.splash-complet .splash-socle { animation: splash-barre .64s ease-out .64s both; }
+.splash-complet .splash-arche { animation: splash-trace 1.12s ease-in-out .88s both; }
+.splash-complet .splash-nom { animation: splash-monte .72s ease-out 1.76s both; }
+.splash-complet .splash-slogan { animation: splash-monte .72s ease-out 2.16s both, splash-disparait .48s ease 3.12s forwards; }
+.splash-complet .splash-pastille { animation: splash-pop .64s ease 2.4s both, splash-disparait .48s ease 3.12s forwards; }
+.splash-complet .splash-charge-barre { animation: splash-barre 2.88s cubic-bezier(.4, 0, .2, 1) .16s both; }
+.splash-complet .splash-charge { animation: splash-disparait .48s ease 3.12s forwards; }
+/* De 3,2 à 4,2 s : le logo monte et laisse la place à la route */
+.splash-complet .splash-marque { animation: splash-monte-marque 1.04s cubic-bezier(.4, 0, .2, 1) 3.2s both; }
+.splash-complet .splash-cercle-bas { animation: splash-sort-bas .96s ease-in 3.2s both; }
+/* Acte 2, de 3,8 à 6,2 s : le bus */
+.splash-complet .splash-route { animation: splash-route .72s ease-out 3.6s both; }
+.splash-complet .splash-tirets { animation: splash-fondu .48s ease 3.68s both, splash-defile .56s linear 3.68s 5; }
+.splash-complet .splash-bus { animation: splash-arrive 2.08s cubic-bezier(.15, .75, .3, 1) 3.84s both; }
+.splash-complet .splash-roue { animation: splash-tourne .48s linear 3.84s 4; }
+.splash-complet .splash-vitesse { animation: splash-vit 2.24s ease 3.84s both; }
+.splash-complet .splash-trajet { animation: splash-monte .72s ease-out 5.6s both; }
+/* À 7 s : fondu vers la page */
+.splash-complet .splash { animation: splash-sortie .72s ease 7.04s both; }
+
+/* ---------- Version courte : l'arche seule, environ 2,5 s ---------- */
+.splash-court .splash-carre { animation: splash-pop .5s cubic-bezier(.2, .8, .3, 1.2) .1s both; }
+.splash-court .splash-socle { animation: splash-barre .45s ease-out .35s both; }
+.splash-court .splash-arche { animation: splash-trace .8s ease-in-out .5s both; }
+.splash-court .splash-nom { animation: splash-monte .5s ease-out 1.1s both; }
+.splash-court .splash-slogan { animation: splash-monte .5s ease-out 1.35s both; }
+.splash-court .splash-pastille { animation: splash-pop .45s ease 1.5s both; }
+.splash-court .splash-charge-barre { animation: splash-barre 1.9s cubic-bezier(.4, 0, .2, 1) .1s both; }
+.splash-court .splash { animation: splash-sortie .5s ease 2s both; }
+
+/* ---------- « Réduire les animations » : le logo, sans mouvement, 1 s puis fondu ---------- */
+.splash-reduit .splash-carre, .splash-reduit .splash-nom { opacity: 1; }
+.splash-reduit .splash-socle { transform: none; }
+.splash-reduit .splash-arche { stroke-dashoffset: 0; }
+.splash-reduit .splash-charge { display: none; }
+.splash-reduit .splash { animation: splash-efface .4s ease 1s both; }
+
+@keyframes splash-pop {
+  0% { opacity: 0; transform: scale(.55); }
+  70% { opacity: 1; transform: scale(1.06); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes splash-monte { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes splash-fondu { from { opacity: 0; } to { opacity: 1; } }
+@keyframes splash-disparait { to { opacity: 0; } }
+@keyframes splash-trace { from { stroke-dashoffset: 48; } to { stroke-dashoffset: 0; } }
+@keyframes splash-barre { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes splash-monte-marque { to { transform: translateY(-150px) scale(.82); } }
+@keyframes splash-sort-bas { to { transform: translate(-70px, 90px); opacity: 0; } }
+@keyframes splash-route { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@keyframes splash-defile { from { background-position: 0 0; } to { background-position: -40px 0; } }
+@keyframes splash-arrive {
+  0% { opacity: 1; transform: translateX(-280px); }
+  80% { opacity: 1; transform: translateX(6px); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes splash-tourne { to { transform: rotate(360deg); } }
+@keyframes splash-vit { 0%, 15% { opacity: 0; } 30% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes splash-sortie { to { opacity: 0; transform: scale(1.04); visibility: hidden; } }
+@keyframes splash-efface { to { opacity: 0; visibility: hidden; } }
+
+/* Jamais sur papier (billet imprimé depuis l'espace personnel). */
+@media print { .splash { display: none !important; } }

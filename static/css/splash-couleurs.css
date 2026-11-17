@@ -1,0 +1,20 @@
+/* Kantara AgilTrip — couleurs et police dont splash.css a besoin.
+   Inutile si le projet charge déjà static/css/theme.css et app.css de Kantara AgilTrip :
+   ces variables et la police y sont déjà. À charger AVANT splash.css. */
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("../fonts/plus-jakarta-sans.woff2") format("woff2");
+  font-weight: 200 800;
+  font-display: swap;
+}
+
+:root {
+  --bleu-fonce: #16318C;   /* fond du splash, arche et socle du logo */
+  --bleu-marque: #2958C2;  /* cercles décoratifs */
+  --bleu-nuit: #0F2468;    /* route */
+  --bleu-encre: #1C2440;   /* pneus du bus */
+  --jaune: #FEC722;        /* logo, bus, pastille, barre de chargement */
+  --blanc: #FFFFFF;        /* texte */
+  --police: "Plus Jakarta Sans", Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}

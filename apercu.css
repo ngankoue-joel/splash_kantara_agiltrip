@@ -1,0 +1,24 @@
+/* Page d'aperçu seulement : à ne pas copier dans le projet. */
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #F3F6FB;
+  color: #14213D;
+  font-family: var(--police);
+}
+.apercu { max-width: 520px; margin: 0 auto; padding: 48px 16px; text-align: center; }
+.apercu h1 { color: var(--bleu-fonce); font-size: 22px; margin: 0 0 8px; }
+.apercu p { margin: 0 0 20px; color: #6B7280; }
+.apercu-boutons { display: flex; flex-direction: column; gap: 12px; }
+.apercu-boutons button {
+  font: inherit;
+  font-weight: 700;
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: 14px;
+  cursor: pointer;
+}
+.apercu-jaune { background: var(--jaune); color: var(--bleu-fonce); border: 0; }
+.apercu-contour { background: #fff; color: var(--bleu-fonce); border: 2px solid var(--bleu-fonce); }
+.apercu-note { margin-top: 20px; font-size: 13px; }
+@media (min-width: 600px) { .apercu-boutons { flex-direction: row; justify-content: center; } }

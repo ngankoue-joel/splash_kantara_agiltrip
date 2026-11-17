@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kantara AgilTrip · aperçu du splash</title>
+  <link rel="stylesheet" href="static/css/splash-couleurs.css">
+  <link rel="stylesheet" href="static/css/splash.css">
+  <link rel="stylesheet" href="apercu.css">
+  <!-- Dans <head>, sans « defer » : splash.js choisit la version avant le premier affichage. -->
+  <script src="static/js/splash.js"></script>
+</head>
+<body>
+  <!-- Même contenu que templates/composants/splash.html, sans les balises Django. -->
+  <div class="splash" aria-hidden="true">
+    <span class="splash-cercle splash-cercle-haut"></span>
+    <span class="splash-cercle splash-cercle-bas"></span>
+    <div class="splash-scene">
+      <span class="splash-pastille"></span>
+      <span class="splash-route"></span>
+      <span class="splash-tirets"></span>
+      <span class="splash-vitesse splash-vitesse-longue"></span>
+      <span class="splash-vitesse splash-vitesse-courte"></span>
+      <span class="splash-bus">
+        <span class="splash-vitre"></span>
+        <span class="splash-porte"></span>
+        <span class="splash-roue splash-roue-arriere"></span>
+        <span class="splash-roue splash-roue-avant"></span>
+      </span>
+      <p class="splash-trajet">YDE <span class="splash-fleche">→</span> DLA</p>
+      <div class="splash-marque">
+        <svg class="splash-logo" viewBox="0 0 64 64" focusable="false">
+          <rect class="splash-carre" width="64" height="64" rx="16"/>
+          <path class="splash-arche" d="M17 40 A15 15 0 0 1 47 40" fill="none" stroke-width="6"/>
+          <rect class="splash-socle" x="8" y="39" width="48" height="6" rx="1"/>
+        </svg>
+        <p class="splash-nom"><span class="splash-kantara">Kantara</span><br><span class="splash-agiltrip">AgilTrip</span></p>
+        <p class="splash-slogan">Voyagez en confiance</p>
+      </div>
+      <span class="splash-charge"><span class="splash-charge-barre"></span></span>
+    </div>
+  </div>
+
+  <main class="apercu">
+    <h1>Aperçu du splash screen</h1>
+    <p>La page normale s'affiche ici une fois le splash terminé.</p>
+    <div class="apercu-boutons">
+      <button type="button" class="apercu-jaune" data-version="complet">Rejouer la version complète</button>
+      <button type="button" class="apercu-contour" data-version="court">Rejouer la version courte</button>
+    </div>
+    <p class="apercu-note">Un clic ou une touche pendant l'animation la ferme tout de suite.</p>
+  </main>
+
+  <script src="apercu.js"></script>
+</body>
+</html>
